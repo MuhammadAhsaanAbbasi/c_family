@@ -6,11 +6,11 @@ void main(){
 
     float b;
     b = 10.1;
-    printf("The Output of the Program is %d\n", b);
+    printf("The Output of the Program is %f\n", b);
 
     char c;
     c = 'a';
-    printf("The Output of the Program is %d\n", c);
+    printf("The Output of the Program is %c\n", c);
 
     printf("Hello World");
 }

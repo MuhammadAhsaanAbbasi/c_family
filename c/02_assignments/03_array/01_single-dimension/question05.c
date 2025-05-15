@@ -4,7 +4,7 @@
 #include<stdio.h>
 
 void main(){
-    int integers[5] = {1, -2, 3, -4, 5};
+    int integers[5] = {1, -2, 3, -4, 5, -6, 7, -8, 9, -10};
     int positiveCount = 0, negativeCount = 0;
     int positive = 0, negative = 0;
 

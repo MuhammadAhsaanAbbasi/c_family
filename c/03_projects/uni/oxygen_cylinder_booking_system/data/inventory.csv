@@ -1,3 +1,4 @@
 id,shop_id,size,volume,price,color,stock
-1,2,Small,10.00,10000.00,Red,50
-2,2,Medium,15.00,15000.00,Blue,50
+6,4,Medium,15.00,15000.00,Red,50
+7,5,Small,10.00,1200.00,Red,40
+8,6,Medium,12.00,1400.00,Blue,28

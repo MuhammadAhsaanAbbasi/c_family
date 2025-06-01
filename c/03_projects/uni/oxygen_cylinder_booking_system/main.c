@@ -28,7 +28,7 @@ int main(void)
         {
             int custIdx = -1;
             if (screen_customer_auth(&custs, &custIdx))
-                screen_customer_menu(&custs, &cyls, custIdx);
+                screen_customer_menu(&custs,&cyls,&books,custIdx);
             break;
         }
         case 0:

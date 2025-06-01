@@ -145,5 +145,65 @@ int find_customer_by_email(const CustList *l, const char *email)
     return -1;
 }
 
+int find_cylinder_by_id(const CylList *l, int id)
+{
+    for (size_t i = 0; i < l->len; ++i)
+        if (l->data[i].id == id) return (int)i;
+    return -1;
+}
+
+int add_booking(BookList *l, int cust_id, int cyl_id,
+                int qty, float total, const char *status)
+{
+    l->data = grow(l->data, &l->cap, sizeof(Booking), l->len);
+    Booking *b = &l->data[l->len];
+    b->id          = (int)(l->len ? l->data[l->len-1].id + 1 : 1);
+    b->customer_id = cust_id;
+    b->cylinder_id = cyl_id;
+    b->qty         = qty;
+    b->total       = total;
+    b->date        = time(NULL);
+    snprintf(b->status, sizeof b->status, "%s", status);
+    return (int)l->len++;
+}
+
+int find_booking_by_id(const BookList *l, int id)
+{
+    for (size_t i = 0; i < l->len; ++i)
+        if (l->data[i].id == id) return (int)i;
+    return -1;
+}
+
+void restock_on_cancel(BookList *bl, CylList *cl, int bIdx)
+{
+    Booking *b = &bl->data[bIdx];
+    if (strcmp(b->status, "Cancelled") == 0) return;   /* already done */
+
+    int cIdx = find_cylinder_by_id(cl, b->cylinder_id);
+    if (cIdx == -1) return;                            /* should not happen */
+
+    cl->data[cIdx].stock += b->qty;
+    snprintf(b->status, sizeof b->status, "Cancelled");
+}
+
+int has_active_bookings(const BookList *bl, int cyl_id)
+{
+    for (size_t i = 0; i < bl->len; ++i)
+        if (bl->data[i].cylinder_id == cyl_id &&
+            strcmp(bl->data[i].status, "Active") == 0)
+            return 1;
+    return 0;
+}
+
+void delete_cylinder(CylList *cl, int idx)
+{
+    if (idx < 0 || (size_t)idx >= cl->len) return;
+    /* shift items left */
+    memmove(&cl->data[idx],
+            &cl->data[idx+1],
+            (cl->len - idx - 1) * sizeof(Cylinder));
+    cl->len--;
+}
+
 
 #endif

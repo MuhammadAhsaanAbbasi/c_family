@@ -5,7 +5,7 @@ void main(){
     int n=6;
     int *ptr;
 
-    ptr = (int *)malloc(n*sizeof(int));
+    ptr = (int *)calloc(n, sizeof(int));
     printf("The address of ptr is %u\n", ptr);
     ptr[0] = 10;
     ptr[1] = 20;
